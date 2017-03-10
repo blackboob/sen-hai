@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <title>JavaScript task 7</title>
     <style>
-    	div{	border:1px solid blue;padding:20px;
+    	div{
+    		border:1px solid blue;padding:20px;
     		margin:5px;float:left;
     		background:#fff;
     		}   
@@ -42,78 +43,80 @@
 	var aDiv=document.getElementsByTagName("div");
 	var aInput=document.getElementsByTagName("input");
 	//创建节点树
-	function toTree(node){		
+	function toTree(node){
 		var child=[];
-		var par;		 
-		//var parent=node;
-		if(node.childElementCount < 1){
-			return {left:null,rigth:null,self:node};			
+		var par;
+		if(!node) return null;
+		if(node.childElementCount < 1){	 
+			node.self=node;					
 		}else{ 
 			for(var i=0;i<node.childNodes.length;i++){			
 				if(node.childNodes[i].nodeType == "1"){
-					child.push(node.childNodes[i]);					 			 
+					child.push(node.childNodes[i]);
 				}
-			}
-			return {tree: toTree(child[0]),left:child[0],right:child[1],self:node};			
+			} 
+			node.left = toTree(child[0]);
+			node.right = toTree(child[1]);			 
+			node.self=node;
 		}
+		return node;
 	}
 	//toTree.prototype.show=show;
 	toTree.prototype.inOrder=inOrder;
+	toTree.prototype.postOrder=postOrder;
+	toTree.prototype.preOrder=preOrder;
+	//toTree.prototype.show=show;
 	//show 函数
-	var time=500;
+	var time;
 	var color;
 	function show(node){		 
 		 var timer=setTimeout(function() {
 		 	color="rgba("+Math.floor(225*Math.random())+","+Math.floor(225*Math.random())+","+Math.floor(225*Math.random())+","+1+")";		 	
 		 	node.style.background=color;		 	
 		 }, time);
-		 time+=time;	 
+		 time+=500;
 	}	 
 	//中序：左-根-右
-	function inOrder(node){
-		 if(node){			
-			inOrder(node.left);			
-			if(node.nodeType) show(node);
-			else show(node.self);			
-			inOrder(node.right);			
-		} 		 
-	}
-	//先序遍历 根-左-右
-	function preOrder(node){
-		if(node){			 			
-			if(node.nodeType) show(node);
-			else show(node.self);
-			inOrder(node.left);			
-			inOrder(node.right);			
-		} 
-	}
-	//后序遍历 左-右-根
-	function postOrder(node){
-		if(node){			
-			inOrder(node.left);					
+	var one,two,thr,four;
+	function inOrder(node){	
+		 if(!(node == null)){
+			inOrder(node.left);
+			show(node);
 			inOrder(node.right);
-			if(node.nodeType) show(node);
-			else show(node.self);				
-		} 
-	} 
-	var one= toTree(aDiv[1]);
+		}
+
+	}
+	//先序遍历
+	function preOrder(node){
+		if( !(node == null)){
+			show(node);
+			preOrder(node.left);
+			preOrder(node.right);
+		}
+	}
+	//后序遍历
+	function postOrder(node){
+		if(!(node == null)){
+			postOrder(node.left);
+			postOrder(node.right);
+			show(node);
+		}
+	}
+	 
+	 var one=toTree(aDiv[0]);	  
 	aInput[1].onclick= function(){
 		time=500;
 		inOrder(one);		 
 	}; 
-	var two=toTree(aDiv[0]);
 	aInput[0].onclick= function(){
 		time=500;
-		preOrder(two);		 
-	};
-	var thr=toTree(aDiv[8]); 
+		preOrder(one);		 
+	}; 
 	aInput[2].onclick= function(){
 		time=500;
-		postOrder(thr);		 
+		postOrder(one);		 
 	}; 
-
- 
-
+	 
 </script>
 </body>
 </html>
