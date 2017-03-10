@@ -1,0 +1,126 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript task 7</title>
+    <style>
+    	div{
+    		border:1px solid blue;padding:20px;
+    		margin:5px;float:left;
+    		background:#fff;
+    		}   
+
+    </style>
+</head>
+<body>
+	<div id="container"> 
+		  <div> 
+		 	 <div>
+		 		<div></div>
+		 		<div></div>
+		 	</div>
+		 	<div>
+		 		<div></div>
+		 		<div></div>
+		 	</div>
+		 </div>
+		 <div>
+		 	<div>
+		 		<div></div>
+		 		<div></div>
+		 	</div>
+		 	<div>
+		 		<div></div>
+		 		<div></div>
+		 	</div>
+		 </div>
+	</div>
+	<input type="button" value="先序">
+	<input type="button" value="中序">
+	<input type="button" value="后序">
+<script  type="text/javascript">
+	//获取元素
+	var aDiv=document.getElementsByTagName("div");
+	var aInput=document.getElementsByTagName("input");
+	//创建节点树
+	function toTree(node){
+		//传入一个节点，如果这个节点是叶子，那么说明这是叶子
+		//非叶子，那就可以成为根，有子节点
+		//一直创建，知道是叶子为止
+		var child=[];
+		var par;
+		 
+		//var parent=node;
+		if(node.childElementCount < 1){
+			return {left:null,rigth:null,self:node};			
+		}else{ 
+			for(var i=0;i<node.childNodes.length;i++){			
+				if(node.childNodes[i].nodeType == "1"){
+					child.push(node.childNodes[i]);
+					 			 
+				}
+			}
+			return {tree: toTree(child[0]),left:child[0],right:child[1],self:node};
+			
+		}
+	}
+	//toTree.prototype.show=show;
+	toTree.prototype.inOrder=inOrder;
+	//show 函数
+	var time=500;
+	var color;
+	function show(node){		 
+		 var timer=setTimeout(function() {
+		 	color="rgba("+Math.floor(225*Math.random())+","+Math.floor(225*Math.random())+","+Math.floor(225*Math.random())+","+1+")";		 	
+		 	node.style.background=color;		 	
+		 }, time);
+		 time+=time;	 
+	}	 
+	//中序：左-根-右
+	function inOrder(node){
+		 if(node){			
+			inOrder(node.left);			
+			if(node.nodeType) show(node);
+			else show(node.self);			
+			inOrder(node.right);			
+		} 		 
+	}
+	//先序遍历 根-左-右
+	function preOrder(node){
+		if(node){			 			
+			if(node.nodeType) show(node);
+			else show(node.self);
+			inOrder(node.left);			
+			inOrder(node.right);			
+		} 
+	}
+	//后序遍历 左-右-根
+	function postOrder(node){
+		if(node){			
+			inOrder(node.left);					
+			inOrder(node.right);
+			if(node.nodeType) show(node);
+			else show(node.self);				
+		} 
+	} 
+	var one= toTree(aDiv[1]);
+	aInput[1].onclick= function(){
+		time=500;
+		inOrder(one);		 
+	}; 
+	var two=toTree(aDiv[0]);
+	aInput[0].onclick= function(){
+		time=500;
+		preOrder(two);		 
+	};
+	var thr=toTree(aDiv[8]); 
+	aInput[2].onclick= function(){
+		time=500;
+		postOrder(thr);		 
+	}; 
+
+ 
+
+</script>
+</body>
+</html>
