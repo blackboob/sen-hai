@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <title>JavaScript task 7</title>
     <style>
-    	div{
-    		border:1px solid blue;padding:20px;
+    	div{	border:1px solid blue;padding:20px;
     		margin:5px;float:left;
     		background:#fff;
     		}   
@@ -43,25 +42,19 @@
 	var aDiv=document.getElementsByTagName("div");
 	var aInput=document.getElementsByTagName("input");
 	//创建节点树
-	function toTree(node){
-		//传入一个节点，如果这个节点是叶子，那么说明这是叶子
-		//非叶子，那就可以成为根，有子节点
-		//一直创建，知道是叶子为止
+	function toTree(node){		
 		var child=[];
-		var par;
-		 
+		var par;		 
 		//var parent=node;
 		if(node.childElementCount < 1){
 			return {left:null,rigth:null,self:node};			
 		}else{ 
 			for(var i=0;i<node.childNodes.length;i++){			
 				if(node.childNodes[i].nodeType == "1"){
-					child.push(node.childNodes[i]);
-					 			 
+					child.push(node.childNodes[i]);					 			 
 				}
 			}
-			return {tree: toTree(child[0]),left:child[0],right:child[1],self:node};
-			
+			return {tree: toTree(child[0]),left:child[0],right:child[1],self:node};			
 		}
 	}
 	//toTree.prototype.show=show;
