@@ -70,11 +70,14 @@
 	var time;
 	var color;
 	function show(node){		 
-		 var timer=setTimeout(function() {
+		setTimeout(function() {
 		 	color="rgba("+Math.floor(225*Math.random())+","+Math.floor(225*Math.random())+","+Math.floor(225*Math.random())+","+1+")";		 	
 		 	node.style.background=color;		 	
 		 }, time);
 		 time+=500;
+		setTimeout(function() {
+			node.style.background="none";
+		}, time);
 	}	 
 	//中序：左-根-右
 	var one,two,thr,four;
