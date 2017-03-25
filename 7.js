@@ -15,7 +15,7 @@ function show(node,flag=true){
 		}, time);
 		time+=500; 
 		setTimeout(function() {
-			if(flag == true ) node.style.background="none"; 
+			if(flag == true ) node.style.background="white"; 
 			else  alert("恭喜你，找到匹配内容！");//找到就弹出great！ 
 		}, time);
 	}else{
