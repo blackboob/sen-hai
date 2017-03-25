@@ -4,7 +4,7 @@ var oldTarget;
 box.onclick=function(event){
 	var oEvent=event || window.event;
 	var target=oEvent.target || oEvent.srcElement;
-	if(target.nodeName == "SPAN" || target.nodeName == "DIV"){
+	if(target.nodeName == "SPAN" || target.nodeName == "DIV" || target.nodeName == "B"){
 		if(oldTarget){
 			oldTarget.style.background="white";
 		}
